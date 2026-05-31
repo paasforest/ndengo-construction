@@ -1,45 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-
-// TODO: Replace FORMSPREE_ID with your Formspree form ID from formspree.io
-// Sign up free at formspree.io → New Form → copy the ID (e.g. "xpwzgkla")
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORMSPREE_ID'
+import { useForm, ValidationError } from '@formspree/react'
 
 export default function QuoteForm() {
-  const [submitted, setSubmitted] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [name, setName] = useState('')
-  const [error, setError] = useState('')
+  const [state, handleSubmit] = useForm('xbdbeqkb')
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitting(true)
-    setError('')
-
-    try {
-      const form = e.currentTarget
-      const data = new FormData(form)
-
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
-      })
-
-      if (res.ok) {
-        setSubmitted(true)
-      } else {
-        setError('Something went wrong. Please call us directly on +27 77 438 8845.')
-      }
-    } catch {
-      setError('Something went wrong. Please call us directly on +27 77 438 8845.')
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
-  if (submitted) {
+  if (state.succeeded) {
+    const name =
+      (state.submittingData as Record<string, string> | null)?.fullName ?? 'there'
     return (
       <div className="bg-sage-light border border-sage/20 rounded-lg p-8 text-center">
         <div className="text-4xl mb-4">✓</div>
@@ -55,6 +23,7 @@ export default function QuoteForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Full name */}
       <div>
         <label htmlFor="fullName" className="block text-sm font-medium text-charcoal mb-1.5">
           Full name <span className="text-sage">*</span>
@@ -64,13 +33,13 @@ export default function QuoteForm() {
           name="fullName"
           type="text"
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition"
+          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition aria-[invalid=true]:border-red-400"
           placeholder="Your full name"
         />
+        <ValidationError field="fullName" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
+      {/* Phone */}
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-charcoal mb-1.5">
           Phone / WhatsApp <span className="text-sage">*</span>
@@ -80,11 +49,13 @@ export default function QuoteForm() {
           name="phone"
           type="tel"
           required
-          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition"
+          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition aria-[invalid=true]:border-red-400"
           placeholder="+27 82 000 0000"
         />
+        <ValidationError field="phone" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
+      {/* Suburb */}
       <div>
         <label htmlFor="suburb" className="block text-sm font-medium text-charcoal mb-1.5">
           Suburb <span className="text-sage">*</span>
@@ -94,11 +65,13 @@ export default function QuoteForm() {
           name="suburb"
           type="text"
           required
-          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition"
+          className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition aria-[invalid=true]:border-red-400"
           placeholder="e.g. Bellville, Paarl, Newlands"
         />
+        <ValidationError field="suburb" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
+      {/* Service */}
       <div>
         <label htmlFor="service" className="block text-sm font-medium text-charcoal mb-1.5">
           Service needed <span className="text-sage">*</span>
@@ -118,8 +91,10 @@ export default function QuoteForm() {
           <option value="Outdoor Build">Outdoor Build</option>
           <option value="Not sure yet">Not sure yet</option>
         </select>
+        <ValidationError field="service" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
+      {/* Timeline */}
       <div>
         <label htmlFor="timeline" className="block text-sm font-medium text-charcoal mb-1.5">
           When are you looking to start? <span className="text-sage">*</span>
@@ -136,8 +111,10 @@ export default function QuoteForm() {
           <option value="3–6 months">3–6 months</option>
           <option value="Just exploring">Just exploring</option>
         </select>
+        <ValidationError field="timeline" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
+      {/* Message */}
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-charcoal mb-1.5">
           Tell us about your project
@@ -149,18 +126,18 @@ export default function QuoteForm() {
           className="w-full border border-mist rounded px-4 py-3 text-sm text-charcoal bg-white focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage transition resize-none"
           placeholder="A few sentences is enough. We'll get the details on the site visit."
         />
+        <ValidationError field="message" errors={state.errors} className="mt-1 text-xs text-red-600" />
       </div>
 
-      {error && (
-        <p className="text-red-600 text-sm">{error}</p>
-      )}
+      {/* Form-level errors (e.g. network failure) */}
+      <ValidationError errors={state.errors} className="text-sm text-red-600" />
 
       <button
         type="submit"
-        disabled={submitting}
+        disabled={state.submitting}
         className="w-full bg-sage hover:bg-sage-dark disabled:opacity-60 text-white font-semibold py-4 rounded transition-colors text-base"
       >
-        {submitting ? 'Sending…' : 'Send My Request'}
+        {state.submitting ? 'Sending…' : 'Send My Request'}
       </button>
     </form>
   )
