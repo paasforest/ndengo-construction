@@ -1,18 +1,26 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm, ValidationError } from '@formspree/react'
 
 export default function QuoteForm() {
   const [state, handleSubmit] = useForm('xbdbeqkb')
+  const [submittedName, setSubmittedName] = useState('there')
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const value = new FormData(e.currentTarget).get('fullName')
+    if (typeof value === 'string' && value.trim()) {
+      setSubmittedName(value.trim().split(' ')[0])
+    }
+    handleSubmit(e)
+  }
 
   if (state.succeeded) {
-    const name =
-      (state.submittingData as Record<string, string> | null)?.fullName ?? 'there'
     return (
       <div className="bg-sage-light border border-sage/20 rounded-lg p-8 text-center">
         <div className="text-4xl mb-4">✓</div>
         <h3 className="font-heading font-semibold text-xl text-charcoal mb-2">
-          Thanks, {name}.
+          Thanks, {submittedName}.
         </h3>
         <p className="text-stone">
           We&apos;ll be in touch within 1 business day to arrange your free site visit.
@@ -22,7 +30,7 @@ export default function QuoteForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5">
       {/* Full name */}
       <div>
         <label htmlFor="fullName" className="block text-sm font-medium text-charcoal mb-1.5">
