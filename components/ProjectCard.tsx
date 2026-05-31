@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Clock } from 'lucide-react'
 
 interface ProjectCardProps {
@@ -8,6 +9,8 @@ interface ProjectCardProps {
   type: string
   duration: string
   description: string
+  image?: string
+  imageAlt?: string
 }
 
 export default function ProjectCard({
@@ -17,14 +20,25 @@ export default function ProjectCard({
   type,
   duration,
   description,
+  image,
+  imageAlt,
 }: ProjectCardProps) {
   return (
     <div className="bg-white border border-mist rounded overflow-hidden group hover:shadow-md transition-shadow">
-      {/* TODO: Replace with real project photo using next/image */}
-      <div className="aspect-video bg-mist relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center text-stone/30 text-sm">
-          Project photo coming soon
-        </div>
+      <div className="aspect-video relative overflow-hidden bg-mist">
+        {image ? (
+          <Image
+            src={image}
+            alt={imageAlt ?? title}
+            width={1200}
+            height={800}
+            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center text-stone/30 text-sm">
+            Project photo coming soon
+          </div>
+        )}
       </div>
       <div className="p-6">
         <div className="flex items-center gap-2 mb-3">

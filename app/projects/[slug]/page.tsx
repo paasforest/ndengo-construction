@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getProjectBySlug, projects } from '@/lib/projects'
 import { Clock, MapPin, Tag } from 'lucide-react'
@@ -27,10 +28,15 @@ export default function ProjectPage({ params }: Props) {
 
   return (
     <>
-      {/* Hero image placeholder */}
-      {/* TODO: Replace with real project hero image using next/image */}
-      <div className="aspect-video md:aspect-[21/7] bg-mist w-full flex items-center justify-center text-stone/30 text-sm">
-        Project hero photo coming soon
+      {/* Hero image */}
+      <div className="aspect-video md:aspect-[21/7] relative w-full overflow-hidden bg-mist">
+        <Image
+          src={project.coverImage}
+          alt={project.coverImageAlt}
+          fill
+          priority
+          className="object-cover"
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -93,14 +99,16 @@ export default function ProjectPage({ params }: Props) {
               <h2 className="font-heading font-semibold text-xl text-charcoal mb-4">
                 Project Photos
               </h2>
-              {/* TODO: Replace with real project photos using next/image */}
               <div className="grid grid-cols-2 gap-4">
-                {[1, 2].map((n) => (
-                  <div
-                    key={n}
-                    className="aspect-video bg-mist rounded flex items-center justify-center text-stone/30 text-xs"
-                  >
-                    Photo {n} coming soon
+                {project.images.map((src, n) => (
+                  <div key={n} className="aspect-video relative rounded overflow-hidden bg-mist">
+                    <Image
+                      src={src}
+                      alt={`${project.title} — photo ${n + 1}`}
+                      width={1200}
+                      height={800}
+                      className="object-cover w-full h-full"
+                    />
                   </div>
                 ))}
               </div>

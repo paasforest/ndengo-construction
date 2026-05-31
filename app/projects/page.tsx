@@ -65,6 +65,8 @@ export default function ProjectsPage() {
                 type={project.type}
                 duration={project.duration}
                 description={project.description}
+                image={project.coverImage}
+                imageAlt={project.coverImageAlt}
               />
             ))}
           </div>

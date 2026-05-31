@@ -9,6 +9,8 @@ export interface Project {
   solution: string
   result: string
   images: string[]
+  coverImage: string
+  coverImageAlt: string
   featured: boolean
 }
 
@@ -27,7 +29,12 @@ export const projects: Project[] = [
       'We opened the kitchen up by removing a non-load-bearing partition wall and reconfiguring the plumbing layout entirely. New cabinetry was installed with soft-close hardware, and the electrical was brought up to code with dedicated circuits for appliances. Large-format porcelain tiles were laid throughout.',
     result:
       'The homeowners now have a spacious, light-filled open-plan kitchen that works the way they live. The project was completed on schedule in 5 weeks and came in within the quoted budget.',
-    images: ['/images/placeholder-kitchen-1.jpg', '/images/placeholder-kitchen-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80',
+    coverImageAlt: 'Modern kitchen renovation with white cabinetry and stone countertops',
     featured: true,
   },
   {
@@ -44,7 +51,12 @@ export const projects: Project[] = [
       'We engaged a structural engineer to assess and reinforce the garage slab and walls. Our team handled all drawings, submission, and approval with the local municipality. Once approval was granted, the upper storey was framed, bricked, roofed, and finished — including a full en-suite bathroom with waterproofing.',
     result:
       'A fully self-contained guest suite with its own bathroom, accessed via an external staircase. Plans approval secured. The family now has flexible accommodation for guests or extended family.',
-    images: ['/images/placeholder-extension-1.jpg', '/images/placeholder-extension-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
+    coverImageAlt: 'Modern home exterior with double storey extension',
     featured: true,
   },
   {
@@ -61,7 +73,12 @@ export const projects: Project[] = [
       'We stripped the bathroom to the shell, treated and dried the affected framing, and applied a full tanking membrane system before any new work went in. The new layout was reconfigured slightly to improve functionality, with new plumbing, heated towel rails, and large-format tiles throughout.',
     result:
       'A fully waterproofed, beautifully finished bathroom. The adjacent wall was fully remediated and shows no signs of moisture. The homeowner now has peace of mind along with a bathroom they love.',
-    images: ['/images/placeholder-bathroom-1.jpg', '/images/placeholder-bathroom-2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80',
+    ],
+    coverImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80',
+    coverImageAlt: 'Renovated modern bathroom with white tiling and frameless shower',
     featured: true,
   },
 ]

@@ -1,11 +1,18 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Phone } from 'lucide-react'
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center md:justify-start overflow-hidden">
-      {/* TODO: Replace with real hero photo via next/image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal/90 to-sage-dark" />
+      <Image
+        src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&auto=format&fit=crop&q=80"
+        alt="Premium home renovation Western Cape"
+        fill
+        priority
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-charcoal/85 via-charcoal/70 to-sage-dark/60" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-0 w-full">
         <div className="max-w-3xl">

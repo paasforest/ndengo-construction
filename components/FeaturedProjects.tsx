@@ -27,6 +27,8 @@ export default function FeaturedProjects() {
               type={project.type}
               duration={project.duration}
               description={project.description}
+              image={project.coverImage}
+              imageAlt={project.coverImageAlt}
             />
           ))}
         </div>

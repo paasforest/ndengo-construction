@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Shield, Clock, MapPin, Award, CheckCircle2 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -77,9 +78,14 @@ export default function AboutPage() {
       <section className="py-20 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-            {/* TODO: Replace with real team/site photo using next/image */}
-            <div className="aspect-[4/3] bg-mist rounded-lg flex items-center justify-center text-stone/30 text-sm">
-              Photo coming soon
+            <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&auto=format&fit=crop&q=80"
+                alt="Professional construction team on site"
+                width={1200}
+                height={800}
+                className="object-cover w-full h-full"
+              />
             </div>
             <div>
               <h2 className="font-heading font-semibold text-3xl text-charcoal mb-6">

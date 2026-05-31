@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { UtensilsCrossed, Bath, Building2, HardHat, Wrench, Trees } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -12,6 +13,8 @@ const services = [
   {
     id: 'kitchens',
     icon: UtensilsCrossed,
+    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Modern kitchen renovation with white cabinetry and stone countertops',
     title: 'Kitchen Renovations',
     tagline: 'Full kitchen remodels, built to last.',
     description: [
@@ -33,6 +36,8 @@ const services = [
   {
     id: 'bathrooms',
     icon: Bath,
+    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Renovated modern bathroom with white tiling and frameless shower',
     title: 'Bathroom Renovations',
     tagline: 'Gut and rebuild, or a focused refresh.',
     description: [
@@ -54,6 +59,8 @@ const services = [
   {
     id: 'extensions',
     icon: Building2,
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Modern home exterior with double storey extension',
     title: 'Home Extensions',
     tagline: 'Single or double storey. Plans to handover.',
     description: [
@@ -76,6 +83,8 @@ const services = [
   {
     id: 'full-renovations',
     icon: HardHat,
+    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Fully renovated open-plan home interior with modern finishes',
     title: 'Full Renovations',
     tagline: 'Complete home transformations.',
     description: [
@@ -98,6 +107,8 @@ const services = [
   {
     id: 'plumbing-electrical',
     icon: Wrench,
+    image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Professional plumber working on modern bathroom plumbing installation',
     title: 'Plumbing & Electrical',
     tagline: 'Standalone jobs done properly.',
     description: [
@@ -119,6 +130,8 @@ const services = [
   {
     id: 'outdoor',
     icon: Trees,
+    image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Modern outdoor entertainment area with covered patio and braai',
     title: 'Outdoor Builds',
     tagline: 'Braai areas, patios, walls, and garden rooms.',
     description: [
@@ -155,7 +168,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services */}
-      {services.map(({ id, icon: Icon, title, tagline, description, includes }, i) => (
+      {services.map(({ id, icon: Icon, image, imageAlt, title, tagline, description, includes }, i) => (
         <section
           key={id}
           id={id}
@@ -185,9 +198,14 @@ export default function ServicesPage() {
               </div>
 
               <div>
-                {/* TODO: Replace with real service photo using next/image */}
-                <div className="aspect-video bg-mist rounded-lg flex items-center justify-center text-stone/30 text-sm mb-8">
-                  Photo coming soon
+                <div className="aspect-video relative rounded-lg overflow-hidden mb-8">
+                  <Image
+                    src={image}
+                    alt={imageAlt}
+                    width={1200}
+                    height={800}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
 
                 <div className="bg-sage-light border border-sage/20 rounded-lg p-6">
